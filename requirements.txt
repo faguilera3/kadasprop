@@ -3,7 +3,7 @@ langgraph
 langchain
 langchain-openai
 fastapi
-uvicorn
+uvicorn[standard]
 python-dotenv
 pymupdf
 pydantic
@@ -12,3 +12,4 @@ aiofiles
 python-multipart
 requests
 opencv-python-headless
+websockets
