@@ -11,3 +11,4 @@ pydantic-settings
 aiofiles
 python-multipart
 requests
+opencv-python-headless
