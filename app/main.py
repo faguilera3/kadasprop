@@ -400,18 +400,21 @@ def transform_path_to_url(path: str) -> str:
     """Converts a local file path to a URL served by FastAPI."""
     if not path:
         return None
-    # Assuming path is relative to project root or absolute inside project
-    # We serve 'data' at '/data'
-    # Find relative path from 'data'
-    try:
-        abs_path = os.path.abspath(path)
-        abs_data = os.path.abspath("data")
-        if abs_path.startswith(abs_data):
-            rel_path = os.path.relpath(abs_path, abs_data)
-            # Replace backslashes with forward slashes for URL
-            return f"/data/{rel_path.replace(os.sep, '/')}"
-    except Exception:
-        pass
+        
+    # Normalize path separators
+    path = path.replace("\\", "/")
+    
+    # Check if it's already a relative URL or absolute path inside data
+    if "/data/" in path:
+        # Extract everything after /data/
+        parts = path.split("/data/")
+        if len(parts) > 1:
+            return f"/data/{parts[-1]}"
+            
+    # Fallback for simple filenames in root data
+    if os.path.basename(path) == path:
+         return f"/data/{path}"
+         
     return path
 
 @app.post("/scrape")
