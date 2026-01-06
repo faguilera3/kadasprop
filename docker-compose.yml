@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: infomapa-backend
+    volumes:
+      - ./data:/app/data  # Persist scraped data
+      - ./.env:/app/.env  # Use local .env file
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"  # Optional: access backend directly if needed
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: infomapa-frontend
+    ports:
+      - "80:80"  # Serve app on standard port 80
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  infomapa-data:

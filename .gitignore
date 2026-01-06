@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.local
+
+# Data storage (don't upload scraped data)
+data/
+downloads/
+*_debug/
+*.png
+*.jpg
+*.pdf
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Docker
+docker-data/
+
+# OS
+.DS_Store
+Thumbs.db

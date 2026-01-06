@@ -1,0 +1,13 @@
+playwright
+langgraph
+langchain
+langchain-openai
+fastapi
+uvicorn
+python-dotenv
+pymupdf
+pydantic
+pydantic-settings
+aiofiles
+python-multipart
+requests
