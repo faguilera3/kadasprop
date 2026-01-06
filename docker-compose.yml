@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: infomapa-frontend
     ports:
-      - "80:80"  # Serve app on standard port 80
+      - "14000:80"  # Map host port 14000 to container port 80
     depends_on:
       - backend
     restart: always
