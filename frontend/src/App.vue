@@ -271,8 +271,8 @@ const handleSearch = (address: string) => {
 
     <!-- Hero Section / Search Container -->
     <div 
-      class="flex-1 flex flex-col items-center transition-all duration-700 ease-in-out pb-32"
-      :class="hasSearched ? 'justify-start pt-8 flex-none h-auto pb-0' : 'justify-center h-screen'"
+      class="flex-1 flex flex-col items-center transition-all duration-1000 ease-[cubic-bezier(0.4,0,0.2,1)] pb-32"
+      :class="(hasSearched && !loading) ? 'justify-start pt-12 flex-none h-auto pb-8' : 'justify-center h-screen'"
     >
       <!-- Progress Bar (Only when active searching) -->
       <div 
@@ -288,27 +288,26 @@ const handleSearch = (address: string) => {
       <div class="w-full max-w-7xl px-4 text-center">
         <div 
           class="flex justify-center transition-all duration-700 ease-in-out" 
-          :class="hasSearched ? 'mb-4 scale-75' : 'mb-8 scale-100'"
+          :class="(hasSearched && !loading) ? 'mb-4 scale-75' : 'mb-8 scale-100'"
         >
           <img src="/logo.webp" alt="Dunod Logo" class="h-16 md:h-40 object-contain" />
         </div>
         
-        <SearchBox @search="handleSearch" />
+        <SearchBox @search="handleSearch" :isGlobalLoading="loading" />
+        
+        <!-- Discreet Status Text -->
+        <div v-if="loading" class="mt-3 text-center animate-fade-in">
+          <p class="text-sm font-medium text-[#753ddb] animate-pulse">{{ loadingMessage }}</p>
+        </div>
       </div>
     </div>
 
     <!-- Content (Only visible after search) -->
-    <main v-if="hasSearched" class="flex-1 py-8 animate-fade-in">
+    <main 
+      v-if="hasSearched && !loading" 
+      class="flex-1 py-12 animate-fade-in bg-gray-100 w-full rounded-t-[2.5rem] shadow-[inset_0_2px_15px_rgba(0,0,0,0.05)] border-t border-gray-200 mt-4"
+    >
       
-      <!-- Loading State -->
-      <div v-if="loading && !(results && (results.lots_data.length > 0 || results.map_screenshot_url || results.image_url))" class="flex flex-col items-center justify-center py-20 space-y-4">
-        <div class="relative w-16 h-16">
-          <div class="absolute top-0 left-0 w-full h-full border-4 border-[#d3c7f7] rounded-full animate-ping"></div>
-          <div class="absolute top-0 left-0 w-full h-full border-4 border-t-[#753ddb] border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
-        </div>
-        <p class="text-gray-500 font-medium animate-pulse">{{ loadingMessage }}</p>
-      </div>
-
       <!-- Error State -->
       <div v-if="error" class="max-w-2xl mx-auto px-4 py-8">
         <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg flex items-start space-x-3">
@@ -328,7 +327,7 @@ const handleSearch = (address: string) => {
     </main>
     
     <!-- Footer (Only visible after search) -->
-    <footer v-if="hasSearched" class="bg-white border-t border-gray-200 py-8 mt-auto animate-fade-in">
+    <footer v-if="hasSearched && !loading" class="bg-white border-t border-gray-200 py-8 mt-auto animate-fade-in">
       <div class="max-w-7xl mx-auto px-4 text-center text-gray-400 text-sm">
         &copy; {{ new Date().getFullYear() }} 
       </div>

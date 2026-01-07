@@ -5,6 +5,10 @@ import { searchAddress, type Suggestion } from '../services/location'
 // Update location service to use relative path if it's using absolute
 // Wait, location service is imported. Let's check location.ts content.
 
+const props = defineProps<{
+  isGlobalLoading?: boolean
+}>()
+
 const emit = defineEmits(['search'])
 const address = ref('')
 const loading = ref(false)
@@ -110,12 +114,19 @@ const handleKeydown = (e: KeyboardEvent) => {
       <!-- Loading Indicator -->
       <div v-if="loading" class="absolute right-20 animate-spin rounded-full h-5 w-5 border-b-2 border-[#753ddb]"></div>
 
-      <button
+      <button 
         @click="handleSearch"
-        class="absolute right-3 p-3.5 bg-gradient-to-r from-[#753ddb] to-[#561eb0] text-white rounded-full shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center z-10"
-        :disabled="loading"
+        :disabled="isGlobalLoading"
+        class="absolute right-2 p-3 bg-[#753ddb] text-white rounded-full hover:bg-[#6428ca] hover:scale-105 active:scale-95 transition-all duration-300 shadow-md group-hover:shadow-lg disabled:opacity-80 disabled:cursor-not-allowed"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Loading Spinner inside button -->
+        <svg v-if="isGlobalLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        
+        <!-- Search Icon -->
+        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
