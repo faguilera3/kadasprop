@@ -25,6 +25,7 @@ const props = defineProps<{
 
 const mapContainer = ref<HTMLElement | null>(null)
 let map: L.Map | null = null
+let marker: L.Marker | null = null
 
 // Sources
 const WMS_PLANOBASE = 'https://infomapa.rosario.gov.ar/wms/planobase?'
@@ -132,9 +133,7 @@ onMounted(() => {
   }).addTo(map)
 
   // Add marker
-  L.marker([props.lat, props.lng]).addTo(map!)
-    .bindPopup('Ubicación encontrada')
-    .openPopup()
+  marker = L.marker([props.lat, props.lng]).addTo(map!)
 
   // Initialize all WMS layers
   allLayers.forEach(layer => {
@@ -181,6 +180,9 @@ const toggleGroup = (groupName: string) => {
 watch(() => [props.lat, props.lng], ([newLat, newLng]) => {
   if (map) {
     map.setView([newLat, newLng], map.getZoom())
+    if (marker) {
+      marker.setLatLng([newLat, newLng])
+    }
   }
 })
 </script>

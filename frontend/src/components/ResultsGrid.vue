@@ -143,19 +143,6 @@ const mapCoords = computed(() => {
               </span>
             </div>
           </div>
-          
-          <div v-if="results.global_info?.headers?.length" class="space-y-2 mt-4">
-             <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Detalles de Ubicación</h3>
-             <div class="flex flex-wrap gap-2">
-               <span 
-                 v-for="(header, index) in results.global_info.headers.filter(h => !h.includes('Sección') && !h.includes('Manzana'))" 
-                 :key="index"
-                 class="px-3 py-1.5 bg-white border border-gray-200 text-gray-700 rounded-lg text-xs font-medium shadow-sm hover:border-[#e8e2fb] transition-colors"
-               >
-                 {{ header }}
-               </span>
-             </div>
-          </div>
         </div>
 
         <!-- Main Content Grid (Full Width Map with Floating PDF Button) -->
@@ -170,7 +157,6 @@ const mapCoords = computed(() => {
                  </svg>
                  Mapa Interactivo
                </h3>
-               <span class="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded border border-gray-100">WMS Oficial</span>
              </div>
              
              <div v-if="mapCoords" class="w-full h-[600px] animate-fade-in relative z-0">
