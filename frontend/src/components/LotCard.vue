@@ -18,11 +18,12 @@ defineEmits(['click-image'])
 // Helper to format image URL
 const getImageUrl = (url?: string) => {
   if (!url) return ''
-  // If running locally, prepend backend URL if needed, 
-  // but we made the backend return relative paths /data/...
-  // We need to prepend the backend host if frontend is on different port.
-  // Ideally we use a proxy or env var. For now hardcode localhost:8000.
-  return `http://localhost:8000${url}`
+  // Ensure we don't double prepend or miss the host
+  if (url.startsWith('http')) return url
+  // If it's a relative path starting with /data, just return it (browser will prepend current host)
+  if (url.startsWith('/data')) return url
+  // Fallback for any other relative path
+  return url.startsWith('/') ? url : `/${url}`
 }
 </script>
 
