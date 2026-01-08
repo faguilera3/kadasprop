@@ -12,17 +12,13 @@ from pydantic import BaseModel
 from app.graph import app_graph
 from app.core.config import settings
 import asyncio
-from app.scraper import scrape_infomapa
+from app.api_scraper import scrape_infomapa_api
 from app.extractor import extract_data_from_pdf
 import json
 import requests
 from urllib.parse import quote
 import re
 import shutil
-
-# Fix for Windows asyncio loop policy to support subprocesses (needed for Playwright)
-if sys.platform == 'win32':
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
 app = FastAPI(title="InfoMapa Scraper API")
 
@@ -226,6 +222,11 @@ async def delete_history_item(filename: str):
         map_img = os.path.join("data", f"{base_name}_map.png")
         if os.path.exists(map_img):
             os.remove(map_img)
+
+        # 5. Delete PDF if exists
+        pdf_file = os.path.join("data", f"{base_name}.pdf")
+        if os.path.exists(pdf_file):
+            os.remove(pdf_file)
             
         return {"status": "success", "message": "Deleted"}
     except Exception as e:
@@ -263,8 +264,20 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             # Receive address from client
             data = await websocket.receive_text()
-            address = data
             
+            # Parse input (JSON or String)
+            address = ""
+            coordinates = None
+            try:
+                parsed = json.loads(data)
+                if isinstance(parsed, dict):
+                    address = parsed.get("address", "")
+                    coordinates = parsed.get("coordinates")
+                else:
+                    address = str(parsed)
+            except:
+                address = data
+
             await websocket.send_json({"status": "started", "message": f"Iniciando búsqueda para {address}..."})
             
             # Prepare session data for saving
@@ -280,18 +293,20 @@ async def websocket_endpoint(websocket: WebSocket):
             }
             
             try:
-                # 1. Scrape
-                await websocket.send_json({"status": "progress", "message": "Buscando en mapa oficial..."})
+                # 1. Scrape (API Version)
+                await websocket.send_json({"status": "progress", "message": "Consultando API Oficial..."})
                 
                 # We do this manually instead of using graph to control flow
                 output_dir = "data"
                 if not os.path.exists(output_dir):
                     os.makedirs(output_dir)
                     
-                scrape_result = await scrape_infomapa(address, output_dir)
+                # Use API scraper instead of Playwright
+                scrape_result = await scrape_infomapa_api(address, output_dir, coordinates)
                 
                 if not scrape_result.get("pdf_path"):
-                     await websocket.send_json({"status": "error", "message": "No se pudo descargar el plano."})
+                     error_msg = scrape_result.get("error", "No se pudo descargar el plano.")
+                     await websocket.send_json({"status": "error", "message": error_msg})
                      continue
                      
                 # Send screenshot URL immediately

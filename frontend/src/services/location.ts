@@ -2,6 +2,7 @@ export interface Suggestion {
   id: string
   label: string
   type: string
+  coordinates?: [number, number] // [lng, lat] from GeoJSON
 }
 
 export const searchAddress = async (query: string): Promise<Suggestion[]> => {
@@ -21,7 +22,8 @@ export const searchAddress = async (query: string): Promise<Suggestion[]> => {
     return data.features.map((feature: any) => ({
       id: feature.properties.id || feature.properties.descripcion, // Use description as ID if ID is missing
       label: feature.properties.descripcion || feature.properties.name, // "ALEM LEANDRO N 1000" or "name"
-      type: feature.properties.subtipo // "DIRECCION_EXACTA"
+      type: feature.properties.subtipo, // "DIRECCION_EXACTA"
+      coordinates: feature.geometry?.coordinates // [lng, lat]
     })).slice(0, 10) // Limit to 10 suggestions
 
   } catch (error) {

@@ -1,7 +1,7 @@
 import json
 from typing import TypedDict, Optional
 from langgraph.graph import StateGraph, END
-from app.scraper import scrape_infomapa
+from app.api_scraper import scrape_infomapa_api
 from app.extractor import extract_data_from_pdf
 import os
 
@@ -20,7 +20,7 @@ async def scrape_node(state: AgentState):
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
             
-        result = await scrape_infomapa(state['address'], output_dir)
+        result = await scrape_infomapa_api(state['address'], output_dir)
         return {
             "pdf_path": result["pdf_path"],
             "metadata": result["metadata"],

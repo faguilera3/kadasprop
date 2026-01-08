@@ -1,4 +1,3 @@
-playwright
 langgraph
 langchain
 langchain-openai
@@ -13,3 +12,5 @@ python-multipart
 requests
 opencv-python-headless
 websockets
+pyproj
+beautifulsoup4

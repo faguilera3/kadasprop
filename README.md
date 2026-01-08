@@ -6,12 +6,12 @@ Una herramienta moderna para buscar, visualizar y extraer datos de lotes y mapas
 
 *   **Búsqueda Inteligente:** Encuentra direcciones y alturas exactas.
 *   **Mapa Interactivo:** Visualiza capas oficiales (catastro, infraestructura, normas) sobre un mapa Leaflet.
-*   **Extracción Automática:** Utiliza Playwright para capturar el plano oficial y LLMs para extraer datos de lotes.
+*   **Extracción Automática:** Utiliza API oficial para capturar el plano oficial y LLMs para extraer datos de lotes.
 *   **Historial:** Guarda tus búsquedas y recupera los datos en cualquier momento.
 
 ## Tecnologías
 
-*   **Backend:** Python, FastAPI, Playwright, LangChain.
+*   **Backend:** Python, FastAPI, Requests, LangChain.
 *   **Frontend:** Vue 3, TypeScript, Tailwind CSS, Leaflet.
 *   **Infraestructura:** Docker, Nginx.
 
@@ -22,7 +22,6 @@ Una herramienta moderna para buscar, visualizar y extraer datos de lotes y mapas
 3.  Instalar dependencias de backend:
     ```bash
     pip install -r requirements.txt
-    playwright install
     ```
 4.  Instalar dependencias de frontend:
     ```bash

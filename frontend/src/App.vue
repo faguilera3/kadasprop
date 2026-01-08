@@ -75,7 +75,7 @@ const deleteHistoryItem = async (filename: string) => {
   }
 }
 
-const handleSearch = (address: string) => {
+const handleSearch = (payload: any) => {
   isHistoryOpen.value = false
   loading.value = true
   loadingMessage.value = 'Conectando con el servidor...'
@@ -90,15 +90,13 @@ const handleSearch = (address: string) => {
   }
   hasSearched.value = true
   
+  // payload can be string or object
+  const address = typeof payload === 'string' ? payload : payload.address
+  const coordinates = (typeof payload === 'object' && payload.coordinates) ? payload.coordinates : null
+
   // Determine WebSocket protocol (ws or wss)
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
   const host = window.location.host // Includes port if present
-  // If dev mode (vite proxy), we can connect to current host/ws
-  // If production, nginx will proxy /ws to backend
-  // But wait, Vite proxy for WS is tricky.
-  // In dev: window.location.host is localhost:5173. 
-  // Vite config proxies /ws to localhost:8000.
-  // So connecting to ws://localhost:5173/ws should work and be proxied.
   
   const wsUrl = `${protocol}//${host}/ws/scrape`
   const ws = new WebSocket(wsUrl)
@@ -107,7 +105,8 @@ const handleSearch = (address: string) => {
   let processedLots = 0
 
   ws.onopen = () => {
-    ws.send(address)
+    // Send object with address and optional coordinates
+    ws.send(JSON.stringify({ address, coordinates }))
     progress.value = 5 // Connection established
   }
   

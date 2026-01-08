@@ -58,6 +58,12 @@ const handleSearch = () => {
   showSuggestions.value = false
   suggestions.value = []
   
+  // If we have a selected suggestion that matches the current text, send it
+  // But usually this is called on Enter or button click
+  // We'll just emit the address string for now, App.vue will handle simple string search if needed
+  // Or we can emit an object if we have one?
+  // Let's keep it simple: if selectSuggestion was called, we emit object there.
+  // Here we only emit string.
   emit('search', address.value)
 }
 
@@ -74,7 +80,8 @@ const selectSuggestion = (suggestion: Suggestion) => {
   suggestions.value = []
   showSuggestions.value = false
   
-  handleSearch()
+  // Emit full suggestion object including coordinates
+  emit('search', { address: suggestion.label, coordinates: suggestion.coordinates })
 }
 
 const handleKeydown = (e: KeyboardEvent) => {

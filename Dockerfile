@@ -1,12 +1,10 @@
-# Use official Playwright image (includes Python and browsers)
-FROM mcr.microsoft.com/playwright/python:v1.57.0-jammy
+# Use official lightweight Python image
+FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (needed for opencv/pymupdf if any)
 RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
     libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
