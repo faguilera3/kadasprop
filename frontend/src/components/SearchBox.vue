@@ -108,23 +108,23 @@ const handleKeydown = (e: KeyboardEvent) => {
 <template>
   <div class="w-full max-w-2xl mx-auto p-2 relative">
     <div class="relative flex items-center group">
-      <div class="absolute inset-0 bg-[#e8e2fb] rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+      <div class="absolute inset-0 bg-primary-100 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
       <input
         v-model="address"
         @keydown="handleKeydown"
         type="text"
         placeholder="Ingresá una dirección (ej: Cordoba 1000)"
-        class="relative w-full px-8 py-5 text-lg border-0 bg-white rounded-full shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1)] focus:shadow-[0_8px_30px_-4px_rgba(117,61,219,0.2)] placeholder-gray-400 text-gray-700 outline-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#753ddb] transition-all duration-300 pr-20"
+        class="relative w-full px-8 py-5 text-lg border-0 bg-white rounded-full shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1)] focus:shadow-[0_8px_30px_-4px_rgba(34,197,94,0.2)] placeholder-gray-400 text-gray-700 outline-none ring-1 ring-gray-100 focus:ring-2 focus:ring-primary-500 transition-all duration-300 pr-20"
         @focus="showSuggestions = suggestions.length > 0"
       />
       
       <!-- Loading Indicator -->
-      <div v-if="loading" class="absolute right-20 animate-spin rounded-full h-5 w-5 border-b-2 border-[#753ddb]"></div>
+      <div v-if="loading" class="absolute right-20 animate-spin rounded-full h-5 w-5 border-b-2 border-primary-500"></div>
 
       <button 
         @click="handleSearch"
         :disabled="isGlobalLoading"
-        class="absolute right-2 p-3 bg-[#753ddb] text-white rounded-full hover:bg-[#6428ca] hover:scale-105 active:scale-95 transition-all duration-300 shadow-md group-hover:shadow-lg disabled:opacity-80 disabled:cursor-not-allowed"
+        class="absolute right-2 p-3 bg-primary-500 text-white rounded-full hover:bg-primary-600 hover:scale-105 active:scale-95 transition-all duration-300 shadow-md group-hover:shadow-lg disabled:opacity-80 disabled:cursor-not-allowed"
       >
         <!-- Loading Spinner inside button -->
         <svg v-if="isGlobalLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -151,9 +151,9 @@ const handleKeydown = (e: KeyboardEvent) => {
           @click="selectSuggestion(suggestion)"
           @mouseenter="selectedIndex = index"
           class="px-6 py-3 cursor-pointer transition-colors flex items-center gap-3"
-          :class="{ 'bg-gray-50 text-[#753ddb]': index === selectedIndex, 'text-gray-700 hover:bg-gray-50': index !== selectedIndex }"
+          :class="{ 'bg-gray-50 text-primary-500': index === selectedIndex, 'text-gray-700 hover:bg-gray-50': index !== selectedIndex }"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" :class="{ 'text-[#753ddb]': index === selectedIndex }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" :class="{ 'text-primary-500': index === selectedIndex }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>

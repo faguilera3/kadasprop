@@ -47,16 +47,16 @@ const getImageUrl = (url?: string) => {
         </div>
       </div>
       
-      <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-[#6428ca] text-xs font-bold px-2.5 py-1 rounded-full shadow-sm pointer-events-none z-20 border border-[#e8e2fb]">
+      <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-primary-600 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm pointer-events-none z-20 border border-primary-100">
         {{ lot.lot_number || 'S/N' }}
       </div>
       
       <!-- Zoom Icon Overlay -->
       <div 
         v-if="lot.image_url"
-        class="absolute inset-0 bg-[#3c1678]/0 group-hover:bg-[#3c1678]/5 transition-colors duration-300 flex items-center justify-center pointer-events-none z-20"
+        class="absolute inset-0 bg-primary-900/0 group-hover:bg-primary-900/5 transition-colors duration-300 flex items-center justify-center pointer-events-none z-20"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#6428ca] opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 drop-shadow-md bg-white rounded-full p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 drop-shadow-md bg-white rounded-full p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>

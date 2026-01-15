@@ -195,12 +195,12 @@ const handleSearch = (payload: any) => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 text-gray-800 font-sans selection:bg-[#e8e2fb] selection:text-[#3c1678] flex flex-col relative overflow-x-hidden">
+  <div class="min-h-screen bg-gray-50 text-gray-800 font-sans selection:bg-primary-100 selection:text-primary-900 flex flex-col relative overflow-x-hidden">
     
     <!-- History Toggle Button -->
     <button 
       @click="toggleHistory"
-      class="fixed top-4 right-4 z-40 p-3 bg-white text-[#753ddb] rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100"
+      class="fixed top-4 right-4 z-40 p-3 bg-white text-primary-500 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-100"
       title="Historial de Búsquedas"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -215,7 +215,7 @@ const handleSearch = (payload: any) => {
     >
       <div class="p-4 border-b border-gray-100 flex items-center justify-between bg-[#f9fafb]">
         <h2 class="font-bold text-gray-800 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#753ddb]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           Historial
@@ -235,14 +235,14 @@ const handleSearch = (payload: any) => {
         <div 
           v-for="item in historyItems" 
           :key="item.filename"
-          class="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-[#e8e2fb] transition-all group"
+          class="bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-primary-100 transition-all group"
         >
           <div class="flex justify-between items-start mb-2">
             <button 
               @click="loadHistoryItem(item.filename)"
               class="text-left flex-1"
             >
-              <h3 class="font-semibold text-gray-800 text-sm group-hover:text-[#753ddb] transition-colors leading-tight mb-1">
+              <h3 class="font-semibold text-gray-800 text-sm group-hover:text-primary-500 transition-colors leading-tight mb-1">
                 {{ item.address }}
               </h3>
               <span class="text-xs text-gray-400 block">{{ item.date }}</span>
@@ -279,7 +279,7 @@ const handleSearch = (payload: any) => {
         class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-[9999]"
       >
         <div 
-          class="h-full bg-gradient-to-r from-[#753ddb] via-[#9f67ff] to-[#d3c7f7] transition-all duration-300 ease-out shadow-[0_0_15px_rgba(117,61,219,0.6)]"
+          class="h-full bg-gradient-to-r from-primary-500 via-primary-400 to-primary-200 transition-all duration-300 ease-out shadow-[0_0_15px_rgba(34,197,94,0.6)]"
           :style="{ width: `${progress}%` }"
         ></div>
       </div>
@@ -289,14 +289,14 @@ const handleSearch = (payload: any) => {
           class="flex justify-center transition-all duration-700 ease-in-out" 
           :class="(hasSearched && !loading) ? 'mb-4 scale-75' : 'mb-8 scale-100'"
         >
-          <img src="/logo.webp" alt="Dunod Logo" class="h-16 md:h-40 object-contain" />
+          <img src="/logo.png" alt="Logo" class="h-16 md:h-40 object-contain" />
         </div>
         
         <SearchBox @search="handleSearch" :isGlobalLoading="loading" />
         
         <!-- Discreet Status Text -->
         <div v-if="loading" class="mt-3 text-center animate-fade-in">
-          <p class="text-sm font-medium text-[#753ddb] animate-pulse">{{ loadingMessage }}</p>
+          <p class="text-sm font-medium text-primary-500 animate-pulse">{{ loadingMessage }}</p>
         </div>
       </div>
     </div>

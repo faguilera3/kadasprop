@@ -192,7 +192,7 @@ watch(() => [props.lat, props.lng], ([newLat, newLng]) => {
     
     <!-- Sidebar -->
     <div class="w-64 bg-white border-r border-gray-200 flex flex-col overflow-y-auto h-full z-[1001] shadow-lg">
-      <div class="p-4 bg-[#753ddb] text-white font-bold text-sm uppercase tracking-wide flex items-center gap-2">
+      <div class="p-4 bg-primary-500 text-white font-bold text-sm uppercase tracking-wide flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
         </svg>
@@ -229,7 +229,7 @@ watch(() => [props.lat, props.lng], ([newLat, newLng]) => {
                   type="checkbox" 
                   :checked="activeLayers.includes(layer.id)"
                   @change="toggleLayer(layer.id)"
-                  class="peer h-4 w-4 rounded border-gray-300 text-[#753ddb] focus:ring-[#753ddb] cursor-pointer"
+                  class="peer h-4 w-4 rounded border-gray-300 text-primary-500 focus:ring-primary-500 cursor-pointer"
                 />
               </div>
               <span class="text-sm text-gray-600 group-hover/item:text-gray-900">{{ layer.name }}</span>

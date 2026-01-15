@@ -120,8 +120,8 @@ const mapCoords = computed(() => {
             
             <!-- Official Metadata Grid -->
             <div v-if="displayMetadata" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 my-4 animate-fade-in">
-              <div v-for="[key, value] in displayMetadata" :key="key" class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-[#e8e2fb] transition-colors group">
-                <span class="block text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1 group-hover:text-[#753ddb] transition-colors">{{ key }}</span>
+              <div v-for="[key, value] in displayMetadata" :key="key" class="bg-gray-50 p-3 rounded-lg border border-gray-100 hover:border-primary-100 transition-colors group">
+                <span class="block text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1 group-hover:text-primary-500 transition-colors">{{ key }}</span>
                 <span class="block text-sm font-semibold text-gray-800 font-mono break-words leading-tight">{{ value }}</span>
               </div>
             </div>
@@ -137,7 +137,7 @@ const mapCoords = computed(() => {
               <span 
                 v-for="street in results.global_info.streets" 
                 :key="street"
-                class="px-3 py-1 bg-[#f2f0fd] text-[#561eb0] rounded-full text-sm font-medium border border-[#e8e2fb]"
+                class="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-sm font-medium border border-primary-100"
               >
                 {{ street }}
               </span>
@@ -166,7 +166,7 @@ const mapCoords = computed(() => {
                 <div v-if="results.image_url" class="absolute bottom-6 right-6 z-[1002]">
                   <button 
                     @click="openModal(results.image_url)"
-                    class="group flex items-center gap-3 bg-white p-2 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-[#753ddb] transition-all duration-300"
+                    class="group flex items-center gap-3 bg-white p-2 rounded-xl shadow-lg border border-gray-200 hover:shadow-xl hover:border-primary-500 transition-all duration-300"
                   >
                     <div class="w-16 h-16 rounded-lg overflow-hidden border border-gray-100 relative bg-gray-50">
                       <img 
@@ -176,7 +176,7 @@ const mapCoords = computed(() => {
                       />
                     </div>
                     <div class="pr-3 text-left">
-                      <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-[#753ddb]">Plano Oficial</span>
+                      <span class="block text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-primary-500">Plano Oficial</span>
                       <span class="text-sm font-semibold text-gray-800">Ver PDF Digitalizado</span>
                     </div>
                   </button>
