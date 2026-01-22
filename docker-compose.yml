@@ -8,6 +8,7 @@ services:
     container_name: infomapa-backend
     volumes:
       - ./data:/app/data  # Persist scraped data
+      - ./.env:/app/.env  # Use local .env file
     environment:
       - PYTHONUNBUFFERED=1
     ports:
