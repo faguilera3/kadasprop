@@ -12,7 +12,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     ports:
-      - "8000:8000"  # Optional: access backend directly if needed
+      - "8001:8001"  # Optional: access backend directly if needed
 
   frontend:
     build: 
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     container_name: infomapa-frontend
     ports:
-      - "14000:80"  # Map host port 14000 to container port 80
+      - "14001:80"  # Map host port 14001 to container port 80
     depends_on:
       - backend
     restart: always
